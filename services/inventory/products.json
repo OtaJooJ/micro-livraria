@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Como realmente cometer atos terroristas",
+        "author": "Rui Braga",
+        "quantity": 10,
+        "price": 1.12,
+        "photo": "https://m.media-amazon.com/images/I/81qX5cG2B2L._UF1000,1000_QL80_.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Livro 2",
+        "author": "autor do livro 2",
+        "quantity": 10,
+        "price": 21.12,
+        "photo": "https://m.media-amazon.com/images/I/719oHl3goCL._UF1000,1000_QL80_.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Livro 3",
+        "author": "autor do livro 3",
+        "quantity": 10,
+        "price": 21.12,
+        "photo": "https://m.media-amazon.com/images/I/719oHl3goCL._UF1000,1000_QL80_.jpg"
+    }
+]
