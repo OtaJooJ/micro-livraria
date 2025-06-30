@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="index.css" />
     <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
 </head>
-<body>
+<body onload="carregarLivros()">
     <section class="hero is-info is-small">
         <div class="hero-body">
             <div class="container has-text-centered">
@@ -20,12 +20,22 @@
     </section>
     <div class="box-cta">
         <p class="has-text-centered"> Compre nossos produtos em nosso E-commerce </p>
+
+        <div class="field has-addons" style="justify-content: center; margin: 20px;"> 
+            <div class="control">
+                <input class="input" type="number" id="input-id" placeholder="Digite o ID do Livro"/>
+            </div>
+            <div class="control">
+                <a class="button button-shipping is-info" onclick="searchID()"> Pesquisar </a>
+            </div>
+        </div>
+
     </div>
     <section class="container">
         <div class="columns books"></div>
     </section>
 
-    <footer class="footer has-text-centered"> Feito por Prof. Jacques</footer>
+    <footer class="footer has-text-centered"> Feito por Mim mesmo muahahahhaaha</footer>
 
     <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

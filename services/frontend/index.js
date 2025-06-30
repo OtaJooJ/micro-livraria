@@ -1,3 +1,5 @@
+let dadoFetchado = "http://localhost:3000/products";
+
 //Função para criar e retornar um elemento HTML representando um produto
 function newBook(book) {
     //cria uma div para o livro e adiciona a classe de coluna
@@ -26,7 +28,7 @@ function newBook(book) {
                     </div>
                     <div class="field has-addons"> 
                         <div class="control">
-                            <input class="input" type="text" placeholder="Digite o CEP"/>
+                            <input class="input" type="text" id="input-cep-${book.id}" placeholder="Digite o CEP"/>
                         </div>
                         <div class="control">
                             <a class="button button-shipping is-info" data-id="${book.id}"> Calcular Frete </a>
@@ -61,12 +63,26 @@ function calculateShipping(id, cep) {
         });
 }
 
-//Aguarda o carregamento completo do DOM
-document.addEventListener('DOMContentLoaded', function () {
+//Função que define un novo valor para a variavel dadoFetchado baseado no input
+function searchID(){
+    let userInput = document.getElementById("input-id").value;
+
+    if (userInput == "") {
+        dadoFetchado = "http://localhost:3000/products";
+    } else {
+    dadoFetchado = "http://localhost:3000/product/" + userInput}
+    carregarLivros();
+
+}
+
+// Função pra substituir a antiga da esperar pelo DOM. Acho q funciona melhor assim
+function carregarLivros(){
     const books = document.querySelector('.books'); //Seleciona o container onde os livros serão exibidos
 
+    books.innerHTML = ''; // Limpa a lista antes de renderizar
+
     //Busca os produtos (livros) do servidor
-    fetch('http://localhost:3000/products')
+    fetch(dadoFetchado)
         .then((data) => {
             if (data.ok) {
                 return data.json(); //Converte a resposta para JSON se estiver ok
@@ -75,17 +91,23 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then((data) => {
             if (data) {
-                //para cada livro, cria e adiciona o elemento ao container
-                data.forEach((book) => {
-                    books.appendChild(newBook(book));
+                // Para cada livro, cria e adiciona o elemento ao container
+                const livros = Array.isArray(data) ? data : [data]; // Se for array, mantém normal. Se for só um objeto, transforma em um array de um unico item (forEach só funciona em array)
+
+                livros.forEach(book => {
+                books.appendChild(newBook(book));
                 });
 
                 //adiciona evento de clique aos botões de calcular frete
                 document.querySelectorAll('.button-shipping').forEach((btn) => {
                     btn.addEventListener('click', (e) => {
                         const id = e.target.getAttribute('data-id'); //Pega o ID do livro
-                        const cep = document.querySelector(`.book[data-id="${id}"] input`).value; //Pega o CEP digitado
-                        calculateShipping(id, cep); //chama a função de frete
+
+                        const cep = document.getElementById("input-cep-" + id).value //Pega o CEP digitado
+
+                        if (cep != ""){
+                            calculateShipping(id, cep); //chama a função de frete
+                        }
                     });
                 });
 
@@ -102,4 +124,4 @@ document.addEventListener('DOMContentLoaded', function () {
             swal('Erro', 'Erro ao listar os produtos', 'error');
             console.error(err);
         });
-});
+}

@@ -12,8 +12,10 @@ const packageDefinition = protoLoader.loadSync('proto/inventory.proto', {
     arrays: true //Interpreta campos repeated como arrays
 });
 
+const proto = grpc.loadPackageDefinition(packageDefinition);
+
 //Cria uma instância do serviço InventoryService com base na definição carregada
-const InventoryService = grpc.loadPackageDefinition(packageDefinition).InventoryService;
+const InventoryService = proto.InventoryService;
 
 //Cria um cliente gRPC para o serviço de inventário, apontando para o endereço onde o serviço está rodando
 const client = new InventoryService('127.0.0.1:3002', grpc.credentials.createInsecure());

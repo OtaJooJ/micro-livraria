@@ -25,12 +25,16 @@ const server = new grpc.Server();
 server.addService(inventoryProto.InventoryService.service, {
     //implementação do método searchAllProducts
     //esse metodo ignora o request (_) e retorna a lista de produtos
-    searchAllProducts: (_, callback) => {
+    SearchAllProducts: (_, callback) => {
         callback(null, {
             products: products, //retorna todos os produtos carregados do JSON
         });
     },
-                                                                                
+    SearchProductByID: (payload, callback) => {
+        callback(null, 
+            products.find((product) => product.id == payload.request.id)
+        );
+    },
 });
 
 //inicia o servidor gRPC na porta 3002 e exibe uma mensagem de status no console
